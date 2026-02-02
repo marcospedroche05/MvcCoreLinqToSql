@@ -43,5 +43,20 @@ namespace MvcCoreLinqToSql.Controllers
                 return View(empleados);
             }
         }
+
+        public IActionResult ResumenEmpleados()
+        {
+            List<string> oficios = this.repo.GetOficios();
+            ViewData["OFICIOS"] = oficios;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ResumenEmpleados(string oficio)
+        {
+            List<string> oficios = this.repo.GetOficios();
+            ViewData["OFICIOS"] = oficios;
+            ResumenEmpleado resumen = this.repo.GetEmpleadosOficio(oficio);
+            return View(resumen);
+        }
     }
 }
